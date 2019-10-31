@@ -1,0 +1,27 @@
+{% extends'base.html' %}
+
+{% block head %}
+<title>Student</title>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <h2>Nieuw Student</h2>
+    <form class="form" action="/" method="POST">
+        <input type="text" class="number" id="studentnummer" required>
+        <input type="text" class="input" id="voornaam" required>
+        <input type="text" class="input" id="achternaam" required>
+        <input type="text" class="input" id="cohort" required>
+        <input type="text" class="input" id="studierichting" required>
+        <input type="submit" class="btn" value="submit">
+    </form>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

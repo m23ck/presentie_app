@@ -10,7 +10,25 @@
    
     {% block head %}{% endblock %}
 </head>
-<body>
+<body class="blue-grey darken-3">
+    <div class="container">
+
+    <div class="row navbar-fixed">
+        <li>
+            <a href="">Home</a>
+            <a href="">Student</a>
+            <a href="">Vak</a>
+        </li>
+    </div>
     {% block body %}{% endblock %}
+
+    </div>
+    <script type='text/javascript' src="{{ url_for('static', filename='materialize/js/materialize.min.js') }}"></script>
+
 </body>
 </html>
+
+
+   
+  
+

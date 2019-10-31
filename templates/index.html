@@ -1,9 +1,40 @@
 {% extends'base.html' %}
 
 {% block head %}
-
+<title>Presentie</title>
 {% endblock %}
 
 {% block body %}
-<h1>Home</h1>
+
+
+<div class="row">
+    <h2>Presentie</h2>
+    <form class="form" action="/" method="POST">
+        <!-- <input type="text" class="number" id="presentieid" required> -->
+        <!-- <input type="" class="input" id="student" required>  wordt een dropdown met studenten-->
+        <!-- <input type="text" class="input" id="vak" required>  wordt een dropdown met vakken -->
+        <input type="text" class="input" id="status" required>
+        <input type="date" class="input datepicker-modal" id="datum" required>
+        <input type="submit" class="btn" value="submit">
+    </form>
+</div>
+
+
+<table>
+    <tr>
+        <th>Student</th>
+        <th>Vak</th>
+        <th>status</th>
+        <th>datum</th>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td>
+            <a href="">Delete</a>
+            <br>
+            <a href="">Update</a>
+        </td>
+    </tr>
+</table>
 {% endblock %}
