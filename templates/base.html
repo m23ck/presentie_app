@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <style type="text/css" media="print">
+      body {
+          visibility: hidden;
+      }
+      .print {
+          visibility: visible;
+      }
+  </style>
+
+
     {% if title %}
     <title>{{ title }}</title>
     {% else %}
@@ -25,11 +36,11 @@
   <body class="blue-grey darken-3">
     <div class="container">
       <div class="row navbar-fixed">
-        <li>
+        <ul>
           <a href="/">Home</a>
           <a href="/student">Student</a>
           <a href="/vak">Vak</a>
-        </li>
+        </ul>
       </div>
       {% block body %}{% endblock %}
     </div>

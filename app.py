@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, url_for, redirect
 from flask_mysqldb import MySQLdb
 from flask_mysqldb import MySQL
-import pandas as DataFrame
+from pandas import DataFrame
 import pdfkit
+from weasyprint import HTML
 
 app = Flask(__name__)
 
@@ -21,7 +22,6 @@ mysql = MySQL(app)
 
 
 # ROUTES
-
 @app.route("/", methods=['GET', 'POST'])
 def home():
     cur = mysql.connection.cursor()
@@ -84,15 +84,15 @@ def verwijder_student(studentcode):
     return redirect(url_for('student'))
 
 
-# @app.route("/export_student", methods=['GET', 'POST'])
-# def export_student():
-#     cur = mysql.connection.cursor()
-#     resultValue = cur.execute("SELECT studentnummer, achternaam, voornaam, cohort FROM student")
-#     if resultValue > 0:
-#         export_student = cur.fetchall() 
-#     data = DataFrame(export_student)
-#     data.to_csv('student.csv', index = False)
-    
+@app.route("/export_student", methods=['GET', 'POST'])
+def export_student():
+    cur = mysql.connection.cursor()
+    resultValue = cur.execute("SELECT studentnummer, achternaam, voornaam, cohort FROM student")
+    if resultValue > 0:
+        export_student = cur.fetchall() 
+    data = DataFrame(list(export_student))
+    data.to_csv('student.csv', index = False)
+    return redirect(url_for('student'))
 
 
 
@@ -124,18 +124,10 @@ def verwijder_vak(vakcode):
 
 
 
-@app.route('/export_pdf')
-def export_pdf():
-    cur = mysql.connection.cursor()
-    resultValue = cur.execute("SELECT * FROM presentie")
-    if resultValue > 0:
-        presentie = cur.fetchall() 
-    rendered = render_template('export_pdf.html', presentie=presentie)
-    pdf = pdfkit.from_tostring(rendered, False)
-    response = make_response(pdf)
-    response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = 'inline; filename= output.pdf'
-    return response
+# @app.route('/export_pdf')
+# def export_pdf():
+#     HTML(url_for('presentie')).write_pdf('export_presentie.pdf')
+#     return redirect
 
 if __name__ == "__main__":
     app.run(debug=True)

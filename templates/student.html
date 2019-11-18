@@ -3,7 +3,7 @@
 {% endblock head %} {% block body %}
 
 <div class="row">
-  <h3>Nieuw Student</h3>
+  <h3 class="white-text">Nieuw Student</h3>
 
   <form
     class="form col s12"
@@ -81,6 +81,9 @@
 </div>
 
 <div class="row">
+
+  <a href="{{ url_for('export_student') }}">Exporteren</a>
+
   <table>
     <tr>
       <th>Studentnummer</th>

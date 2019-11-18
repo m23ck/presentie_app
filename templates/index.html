@@ -3,9 +3,22 @@
 {% endblock head %} {% block body %}
 
 <center>
-  <h2>Presentie</h2>
+  <h3 class="white-text">Presentie</h3>
 </center>
 <br />
+
+
+<div class="row center">
+    <div class="input-field col s4">
+        <input id="search" name="search" type="text" class="validate" onkeyup="searchFunctionRep()"/>
+        <label for="text">search</label>
+      </div>
+
+      <button type="button" class="btn waves-effect" onClick="window.print()" title="Printen">Printen</button>
+
+</div>  
+
+
 
 <div class="row">
   <form class="form col s12" action="{{ url_for('new_presentie') }}" method="POST" name="form_presentie">
@@ -40,33 +53,33 @@
 
 <br />
 
-<table class="table responsive-table">
+<table class="table responsive-table" id="studenten" >
   <tr>
-    <th>Studentcode</th>
-    <th>Achternaam</th>
-    <th>Voornaam</th>
-    <th>Vakcode</th>
-    <th>status</th>
-    <th>datum</th>
+    <th class="print">Studentcode</th>
+    <th class="print">Achternaam</th>
+    <th class="print">Voornaam</th>
+    <th class="print">Vakcode</th>
+    <th class="print">status</th>
+    <th class="print">datum</th>
   </tr>
   {% for presentie in presentie %}
   <tr>
-    <td>
+    <td class="print">
       {{ presentie.studentcode }}
     </td>
-    <td>
+    <td class="print">
       {{ presentie.achternaam }}
     </td>
-    <td>
+    <td class="print">
       {{ presentie.voornaam }}
     </td>
-    <td>
+    <td class="print">
       {{ presentie.vakcode }}
     </td>
-    <td>
+    <td class="print">
       {{ presentie.status }}
     </td>
-    <td>
+    <td class="print">
       {{ presentie.datum }}
     </td>
     <td>
@@ -81,5 +94,53 @@
   </tr>
   {% endfor %}
 </table>
+
+<script>
+    function searchFunctionRep() {
+        //Declare variabelen 
+        var input, filter, table, tr, td, i, txtValue;
+        //ID VAN JE SEARCHBAR
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        //ID VAN JE VAKKEN TABEL
+        table = document.getElementById("studenten");
+        tr = table.getElementsByTagName("tr");
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            //id
+            td = tr[i].getElementsByTagName("td")[0];
+            //vak
+            td2 = tr[i].getElementsByTagName("td")[1];
+            //student
+            td3 = tr[i].getElementsByTagName("td")[2];
+            //presentie
+            td4 = tr[i].getElementsByTagName("td")[3];
+            //datum
+            td5 = tr[i].getElementsByTagName("td")[4];
+            //blok
+            td6 = tr[i].getElementsByTagName("td")[5];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                txtValue2 = td2.textContent || td2.innerText;
+                txtValue3 = td3.textContent || td3.innerText;
+                txtValue4 = td4.textContent || td4.innerText;
+                txtValue5 = td5.textContent || td5.innerText;
+                txtValue6 = td6.textContent || td6.innerText;
+                if (
+                    txtValue.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue2.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue3.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue4.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue5.toUpperCase().indexOf(filter) > -1 ||
+                    txtValue6.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
 
 {% endblock body %}
