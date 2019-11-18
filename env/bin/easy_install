@@ -1,5 +1,6 @@
-#!/home/sneaky/Documents/Projects/School/presentie_app/env/bin/python2
-
+#!/bin/sh
+'''exec' "/home/sneaky/Documents/Projects/School/presentie_app /env/bin/python2" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys

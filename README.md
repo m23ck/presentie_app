@@ -13,3 +13,22 @@
 ### o	vakCode
 ### o	VakNaam
 ### -	De gebruiker moet per vak de presentie van de ingevoerde studenten voor 8 weken kunnen opzoeken, invoeren, aanpassen en verwijderen.
+
+
+
+SELECT
+    presentie.status,
+    presentie.datum,
+    vak.vaknaam
+FROM
+    presentie
+INNER JOIN vak ON presentie.vakid = vak.id;
+SELECT
+    presentie.status,
+    presentie.datum,
+    student.voornaam,
+    student.achternaam,
+    student.studierichting
+FROM
+    presentie
+INNER JOIN student ON presentie.studentid = student.id;

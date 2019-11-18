@@ -1,47 +1,122 @@
-{% extends'base.html' %}
+{% extends'base.html' %} {% block head %}
+<!-- <title>Student</title> -->
+{% endblock head %} {% block body %}
 
-{% block head %}
-<title>Student</title>
-{% endblock %}
-
-{% block body %}
 <div class="row">
-    <h2>Nieuw Student</h2>
-    <form class="form" action="/" method="POST">
-        <input type="text" class="number" id="studentnummer" required>
-        <input type="text" class="input" id="voornaam" required>
-        <input type="text" class="input" id="achternaam" required>
-        <input type="text" class="input" id="cohort" required>
-        <input type="text" class="input" id="studierichting" required>
-        <input type="submit" class="btn" value="Toevoegen">
-    </form>
+  <h3>Nieuw Student</h3>
+
+  <form
+    class="form col s12"
+    action="{{ url_for('new_student') }}"
+    method="POST"
+  >
+    <div class="input-field col s2">
+      <input
+        id="studentnummer"
+        name="studentnummer"
+        type="number"
+        class="input validate"
+        required
+      />
+      <label for="text">studentnummer</label>
+    </div>
+
+    <div class="input-field col s2">
+      <input
+        id="studentcode"
+        name="studentcode"
+        type="text"
+        class="input validate"
+        required
+      />
+      <label for="text">studentcode</label>
+    </div>
+
+    <div class="input-field col s2">
+      <input
+        id="voornaam"
+        name="voornaam"
+        type="text"
+        class="input validate"
+        required
+      />
+      <label for="text">voornaam</label>
+    </div>
+
+    <div class="input-field col s2">
+      <input
+        id="achternaam"
+        name="achternaam"
+        type="text"
+        class="input validate"
+        required
+      />
+      <label for="text">achternaam</label>
+    </div>
+
+    <div class="input-field col s2">
+      <input
+        id="cohort"
+        name="cohort"
+        type="number"
+        class="input validate"
+        required
+      />
+      <label for="text">cohort</label>
+    </div>
+
+    <div class="input-field col s2">
+      <input
+        id="studierichting"
+        name="studierichting"
+        type="text"
+        class="input validate"
+        required
+      />
+      <label for="text">studierichting</label>
+    </div>
+
+    <input type="submit" class="btn col s2" value="Toevoegen" />
+  </form>
 </div>
 
-<table>
+<div class="row">
+  <table>
     <tr>
-        <th>Studentnummer</th>
-        <th>Voornaam</th>
-        <th>Achternaam</th>
-        <th>Cohort</th>
-        <th>Studierichting</th>
+      <th>Studentnummer</th>
+      <th>Studentcode</th>
+      <th>Voornaam</th>
+      <th>Achternaam</th>
+      <th>Cohort</th>
+      <th>Studierichting</th>
     </tr>
+    {% for student in student %}
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>
-            <a href="">Delete</a>
-            <br>
-            <a href="">Update</a>
-        </td>
+      <td>
+        {{ student.studentnummer }}
+      </td>
+      <td>
+        {{ student.studentcode }}
+      </td>
+      <td>
+        {{ student.voornaam }}
+      </td>
+      <td>
+        {{ student.achternaam }}
+      </td>
+      <td>
+        {{ student.cohort }}
+      </td>
+      <td>
+        {{ student.studierichting }}
+      </td>
+      <td>
+        <a href="/verwijder_student/{{student.studentcode}}" onclick="return confirm('Bent u zeker dat u deze student wilt verwijderen?')">Verwijderen</a>
+        <br />
+        <a href="">Update</a>
+      </td>
     </tr>
-</table>
-
-
-
-
-
-
-{% endblock %}
+    {% endfor %}
+  </table>
+</div>
+{% endblock body %}

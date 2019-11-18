@@ -1,4 +1,4 @@
-#!/home/sneaky/Documents/Projects/School/presentie_app/env/bin/python
+#!/home/sneaky/Documents/Projects/School/presentie_app /env/bin/python
 
 import sys
 import getopt

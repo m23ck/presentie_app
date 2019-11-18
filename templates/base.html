@@ -1,44 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>Presentie App</title>
+    {% endif %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='materialize/css/materialize.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-   
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='materialize/css/materialize.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+
     {% block head %}{% endblock %}
-</head>
-<body class="blue-grey darken-3">
+  </head>
+
+  <body class="blue-grey darken-3">
     <div class="container">
-
-    <div class="row navbar-fixed">
+      <div class="row navbar-fixed">
         <li>
-            <a href="">Home</a>
-            <a href="">Student</a>
-            <a href="">Vak</a>
+          <a href="/">Home</a>
+          <a href="/student">Student</a>
+          <a href="/vak">Vak</a>
         </li>
+      </div>
+      {% block body %}{% endblock %}
     </div>
-    {% block body %}{% endblock %}
-
-    </div>
-    <script type='text/javascript' src="{{ url_for('static', filename='materialize/js/materialize.min.js') }}"></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='materialize/js/materialize.min.js') }}"
+    ></script>
 
     <script>
-    $(document).ready(function(){
-    $('select').formSelect();
-  });
+      $(document).ready(function() {
+        $("select").formSelect();
+      });
 
+      $(document).ready(function() {
+        $(".modal").modal();
+      });
+    </script>
 
-      </script>
-
-
-
-</body>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
+  </body>
 </html>
-
-
-   
-  
-

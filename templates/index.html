@@ -1,73 +1,85 @@
-{% extends'base.html' %}
+{% extends'base.html' %} {% block head %}
+<!-- <title>Presentie</title> -->
+{% endblock head %} {% block body %}
 
-{% block head %}
-<title>Presentie</title>
-{% endblock %}
-
-{% block body %}
-
-<center> <h2>Presentie</h2></center>
-<br>
+<center>
+  <h2>Presentie</h2>
+</center>
+<br />
 
 <div class="row">
-    <form class="form col s12" action="/" method="POST">
-        
-        <div class="input-field col s2" id="student">
-            <select>
-              <option value="" disabled selected>student</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-            <label>Student</label>
-          </div>
-       
-          <div class="input-field col s2" id="vak">
-            <select>
-              <option value="" disabled selected>vak</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
-            </select>
-            <label>Vak</label>
-          </div>
+  <form class="form col s12" action="{{ url_for('new_presentie') }}" method="POST" name="form_presentie">
+    <div class="input-field col s2">
+      <input id="studentcode" name="studentcode" type="text" class="validate" />
+      <label for="text">studentcode</label>
+    </div>
 
-          <div class="input-field col s2">
-            <input id="status" type="text" class="validate">
-            <label for="text">Status</label>
-          </div>
+    <div class="input-field col s2">
+      <input id="vakcode" name="vakcode" type="text" class="validate" />
+      <label for="text">vakcode</label>
+    </div>
 
-          <div class="input-field col s3">
-            <input id="datum" type="date" class="validate">
-            <label for="datum">Datum</label>
-          </div>
+    <div class="input-field col s2">
+      <input id="status" name="status" type="text" class="validate" />
+      <label for="text">Status</label>
+    </div>
 
-        <input type="submit" class="btn col s2" value="Toevoegen">
-    </form>
+    <div class="input-field col s3">
+      <input id="datum" name="datum" type="date" class="validate" />
+      <label for="datum">Datum</label>
+    </div>
+
+    <div class="input-field col s3">
+        <input id="periode" name="periode" type="number" class="validate" />
+        <label for="periode">Periode</label>
+      </div>
+
+    <input type="submit" class="btn col s2" value="Toevoegen" />
+  </form>
 </div>
 
-<br>
+<br />
 
 <table class="table responsive-table">
-    <tr>
-        <th>Student</th>
-        <th>Vak</th>
-        <th>status</th>
-        <th>datum</th>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>
-            <a href="">Delete</a>
-            <br>
-            <a href="">Update</a>
-        </td>
-    </tr>
+  <tr>
+    <th>Studentcode</th>
+    <th>Achternaam</th>
+    <th>Voornaam</th>
+    <th>Vakcode</th>
+    <th>status</th>
+    <th>datum</th>
+  </tr>
+  {% for presentie in presentie %}
+  <tr>
+    <td>
+      {{ presentie.studentcode }}
+    </td>
+    <td>
+      {{ presentie.achternaam }}
+    </td>
+    <td>
+      {{ presentie.voornaam }}
+    </td>
+    <td>
+      {{ presentie.vakcode }}
+    </td>
+    <td>
+      {{ presentie.status }}
+    </td>
+    <td>
+      {{ presentie.datum }}
+    </td>
+    <td>
+        <a
+        href="/verwijder_presentie/{{presentie.id}}"
+        onclick="return confirm('Bent u zeker dat u dit presentie wilt verwijderen?')"
+        >Verwijderen</a
+      >
+      <br />
+      <a href="">Update</a>
+    </td>
+  </tr>
+  {% endfor %}
 </table>
 
-
-
-{% endblock %}
+{% endblock body %}

@@ -1,37 +1,60 @@
-{% extends'base.html' %}
-
-{% block head %}
-<title>Vak</title>
-{% endblock %}
-
-{% block body %}
+{% extends'base.html' %} {% block head %}
+<!-- <title>Vak</title> -->
+{% endblock head %} {% block body %}
 <div class="row">
-    <h2>Nieuwe Vak</h2>
-    <form class="form" action="/" method="POST">
-        <input type="text" class="input" id="vaknaam" required>
-        <input type="submit" class="btn" value="Toevoegen">
-    </form>
+  <h2>Nieuwe Vak</h2>
+  <form class="form col s12" action="{{ url_for('new_vak') }}" method="POST">
+    <div class="input-field col s3">
+      <input
+        id="vaknaam"
+        name="vaknaam"
+        type="text"
+        class="input validate"
+        required
+      />
+      <label for="text">vaknaam</label>
+    </div>
+
+    <div class="input-field col s3">
+      <input
+        id="vakcode"
+        name="vakcode"
+        type="text"
+        class="input validate"
+        required
+      />
+      <label for="text">vakcode</label>
+    </div>
+    <input type="submit" class="btn col s4 offset-s2" value="Toevoegen" />
+  </form>
 </div>
 
-<table class="">
+<div class="row">
+  <table class="responsive-table">
     <tr>
-        <th>Vaknaam</th>
+      <th>Vaknaam</th>
+      <th>Vakcode</th>
     </tr>
+    {% for vak in vak %}
     <tr>
-        <td></td>
-        <td>
-            <a href="">Delete</a>
-            <br>
-            <a href="">Update</a>
-        </td>
+      <td>
+        {{ vak.vaknaam }}
+      </td>
+      <td>
+        {{ vak.vakcode }}
+      </td>
+      <td>
+        <a
+          href="/verwijder_vak/{{vak.vakcode}}"
+          onclick="return confirm('Bent u zeker dat u dit vak wilt verwijderen?')"
+          >Verwijderen</a
+        >
+
+        <br />
+        <a href="">Update</a>
+      </td>
     </tr>
-</table>
-
-
-
-
-
-
-
-
-{% endblock %}
+    {% endfor %}
+  </table>
+</div>
+{% endblock body %}

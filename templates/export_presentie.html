@@ -1,0 +1,40 @@
+{% extends'base.html' %} {% block head %}
+<!-- <title>Presentie</title> -->
+{% endblock head %} {% block body %}
+
+
+<table class="table responsive-table">
+  <tr>
+    <th>Studentcode</th>
+    <th>Achternaam</th>
+    <th>Voornaam</th>
+    <th>Vakcode</th>
+    <th>status</th>
+    <th>datum</th>
+  </tr>
+  {% for presentie in presentie %}
+  <tr>
+    <td>
+      {{ presentie.studentcode }}
+    </td>
+    <td>
+      {{ presentie.achternaam }}
+    </td>
+    <td>
+      {{ presentie.voornaam }}
+    </td>
+    <td>
+      {{ presentie.vakcode }}
+    </td>
+    <td>
+      {{ presentie.status }}
+    </td>
+    <td>
+      {{ presentie.datum }}
+    </td>
+   
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock body %}
