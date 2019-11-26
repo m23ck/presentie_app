@@ -1,9 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect
-from flask_mysqldb import MySQLdb
-from flask_mysqldb import MySQL
+from flask_mysqldb import MySQLdb, MySQL
 from pandas import DataFrame
-import pdfkit
-from weasyprint import HTML
 
 app = Flask(__name__)
 
@@ -123,11 +120,17 @@ def verwijder_vak(vakcode):
     return redirect(url_for('vak'))
 
 
+@app.route("/update_vak/<int:vakid>", methods=["POST"])
+def update_vak():
+    vaknaam = request.form['vaknaam']
+    vakcode = request.form['vakcode']
+    vakid = request.form['vakid']
+    cur = mysql.connection.cursor()
+    cur.execute("UPDATE vak SET (vaknaam, vakcode) VALUES (%s, %s) where id == %s" ,(vaknaam, vakcode, vakid))
+    mysql.connection.commit()
+    return redirect(url_for('vak'))
 
-# @app.route('/export_pdf')
-# def export_pdf():
-#     HTML(url_for('presentie')).write_pdf('export_presentie.pdf')
-#     return redirect
+
 
 if __name__ == "__main__":
     app.run(debug=True)

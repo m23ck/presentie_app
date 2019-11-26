@@ -1,0 +1,37 @@
+{% extends'base.html' %} {% block head %}
+<!-- <title>Vak Bewerken</title> -->
+{% endblock head %} {% block body %}
+
+<div class="row">
+  <h3 class="white-text">Vak Bewerken</h3>
+  <form class="form col s12" action="{{ url_for('update_vak') }}" method="POST">
+    {% for vak in vak %}
+    <div class="input-field col s3">
+      <input
+        id="vaknaam"
+        name="vaknaam"
+        type="text"
+        class="input validate"
+        value="{{ vak.vaknaam }}"
+        required
+      />
+      <label for="text">vaknaam</label>
+    </div>
+
+    <div class="input-field col s3">
+      <input
+        id="vakcode"
+        name="vakcode"
+        type="text"
+        class="input validate"
+        value="{{ vak.vakcode }}"
+        required
+      />
+      <label for="text">vakcode</label>
+    </div>
+    <input type="submit" class="btn col s4 offset-s2" value="Opslaan" />
+    {% endfor %}
+  </form>
+</div>
+
+{% endblock body %}
