@@ -1,0 +1,45 @@
+{% extends'base.html' %} {% block head %}
+<!-- <title>Student</title> -->
+{% endblock head %} {% block body %}
+
+<div class="row">
+    <h3 class="white-text">Update Student</h3>
+
+    <form class="form col s12" action="{{ url_for('update_student') }}" method="POST">
+        {% for student in student %}
+        <div class="input-field col s2">
+            <input id="studentnummer" name="studentnummer" type="number" class="input validate" value="{{ student.studentnummer }}" required />
+            <label for="text">studentnummer</label>
+        </div>
+
+        <div class="input-field col s2">
+            <input id="studentcode" name="studentcode" type="text" class="input validate" value="{{ student.studentcode }}" required />
+            <label for="text">studentcode</label>
+        </div>
+
+        <div class="input-field col s2">
+            <input id="voornaam" name="voornaam" type="text" class="input validate" value="{{ student.voornaam }}" required />
+            <label for="text">voornaam</label>
+        </div>
+
+        <div class="input-field col s2">
+            <input id="achternaam" name="achternaam" type="text" class="input validate" value="{{ student.achternaam }}" required />
+            <label for="text">achternaam</label>
+        </div>
+
+        <div class="input-field col s2">
+            <input id="cohort" name="cohort" type="number" class="input validate" value="{{ student.cohort }}" required />
+            <label for="text">cohort</label>
+        </div>
+
+        <div class="input-field col s2">
+            <input id="studierichting" name="studierichting" type="text" class="input validate" value="{{ student.studierichting }}" required />
+            <label for="text">studierichting</label>
+        </div>
+
+        <input type="submit" class="btn col s2" value="Opslaan" />
+        {% endfor %}
+    </form>
+</div>
+
+{% endblock body %}

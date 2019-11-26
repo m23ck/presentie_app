@@ -20,11 +20,23 @@
 
 
 
+
+
+
 <div class="row">
   <form class="form col s12" action="{{ url_for('new_presentie') }}" method="POST" name="form_presentie">
     <div class="input-field col s2">
-      <input id="studentcode" name="studentcode" type="text" class="validate" />
-      <label for="text">studentcode</label>
+        <select name="student" class="form-control">
+            {% for student in studenten %}
+        
+            <option value="{{ student.student_nr }}"
+               {% if student.studentnummer == presentie.studentnummer%} selected {%endif%}>
+               {{ student.achternaam }}
+            </option>
+        
+            {% endfor %}
+         </select>
+        
     </div>
 
     <div class="input-field col s2">
@@ -89,8 +101,7 @@
         >Verwijderen</a
       >
       <br />
-      <a href="">Update</a>
-    </td>
+      <a href="/update_presentie/{{presentie.id}}">Update</a>
   </tr>
   {% endfor %}
 </table>
