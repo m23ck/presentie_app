@@ -26,19 +26,12 @@
 <div class="row">
   <form class="form col s12" action="{{ url_for('new_presentie') }}" method="POST" name="form_presentie">
     <div class="input-field col s2">
-        <select name="student" class="form-control">
-            {% for student in studenten %}
-        
-            <option value="{{ student.student_nr }}"
-               {% if student.studentnummer == presentie.studentnummer%} selected {%endif%}>
-               {{ student.achternaam }}
-            </option>
-        
-            {% endfor %}
-         </select>
-        
+      <input id="studentcode" name="studentcode" type="text" class="validate" />
+      <label for="text">studentcode</label>          
     </div>
 
+    
+   
     <div class="input-field col s2">
       <input id="vakcode" name="vakcode" type="text" class="validate" />
       <label for="text">vakcode</label>

@@ -23,18 +23,9 @@ mysql = MySQL(app)
 def home():
     cur = mysql.connection.cursor()
     resultValue = cur.execute("SELECT presentie.status, presentie.datum, vak.vaknaam, vak.vakcode, student.studentcode, student.voornaam, student.achternaam, student.studierichting FROM presentie INNER JOIN vak ON presentie.vakid = vak.id INNER JOIN student ON presentie.studentid = student.id")
- 
-   
-    cur.execute("Select * from vak")
-    vak = cur.fetchall()
-
-    cur.execute("Select * from student")
-    student = cur.fetchall()
-
-    
     if resultValue > 0:
         presentie = cur.fetchall() 
-    return render_template("index.html", presentie=presentie, title='presentie', vak= vak, student=student)
+    return render_template("index.html", presentie=presentie, title='presentie')
 
 
 @app.route("/new_presentie", methods=["POST"])
@@ -45,8 +36,14 @@ def new_presentie():
     periode = request.form['periode']
     status = request.form['status']
     cur = mysql.connection.cursor()
+
+    cur.execute("SELECT id FROM student WHERE studentcode = %s" %(studentcode))
+    studentid = cur.fetchall
+
+    cur.execute("SELECT id FROM vak WHERE vakcode = %s" %(vakcode))
+    vakid = cur.fetchall
     
-    cur.execute("INSERT INTO presentie ( studentcode, vakcode, status, datum) VALUES (%s, %s, %s, %s)",(studentcode, vakcode, status, datum))
+    cur.execute("INSERT INTO presentie studentid, vakid, status, datum) VALUES (%s, %s, %s, %s)" %(studentid, vakid, status, datum))
 
     cur.close()
     mysql.connection.commit()
@@ -132,20 +129,20 @@ def verwijder_vak(vakcode):
     return redirect(url_for('vak'))
 
 
-@app.route("/update_vak/<int:id>", methods=["GET", "POST"])
+@app.route("/update_vak/<int:id>")
 def update_vak(id):
+    cur = mysql.connection.cursor()
+
     if request.method == "POST":
         vaknaam = request.form['vaknaam']
         vakcode = request.form['vakcode']
         id = request.form['id']
-        cur = mysql.connection.cursor()
         cur.execute("UPDATE vak SET vaknaam = %s, vakcode = %s WHERE id = %s",(vaknaam, vakcode, id))
-        mysql.connection.commit()
+        # mysql.connection.commit()
         return redirect(url_for('vak'))
     cur = mysql.connection.cursor()
-    resultValue = cur.execute("SELECT * FROM vak")
-    if resultValue > 0:
-        vak = cur.fetchall() 
+    cur.execute("SELECT * FROM vak WHERE id = %s", (id))
+    vak = cur.fetchall() 
     return render_template("update_vak.html", vak=vak, title='update vak')
 
 
