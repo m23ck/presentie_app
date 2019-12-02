@@ -6,6 +6,15 @@
   <h3 class="white-text">Vak Bewerken</h3>
   <form class="form col s12" action="{{ url_for('update_vak') }}" method="POST">
     {% for vak in vak %}
+    <input
+    id="vakid"
+    name="vakid"
+    type="hidden"
+    class="input validate"
+    value="{{ vak.id }}"
+    required
+  />
+
     <div class="input-field col s3">
       <input
         id="vaknaam"

@@ -129,21 +129,22 @@ def verwijder_vak(vakcode):
     return redirect(url_for('vak'))
 
 
-@app.route("/update_vak/<int:id>")
-def update_vak(id):
+@app.route("/update_vak/<string:vakid>")
+def update_vak(vakid):
     cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM vak WHERE id=%s", (vakid))
+    vak = cur.fetchall() 
+    return render_template("update_vak.html", vak=vak, title='update vak')
+
 
     if request.method == "POST":
         vaknaam = request.form['vaknaam']
         vakcode = request.form['vakcode']
-        id = request.form['id']
-        cur.execute("UPDATE vak SET vaknaam = %s, vakcode = %s WHERE id = %s",(vaknaam, vakcode, id))
+        vakid = request.form['vakid']
+        cur.execute("UPDATE vak SET vaknaam = %s, vakcode = %s WHERE id = %s",(vaknaam, vakcode, vakid))
         # mysql.connection.commit()
         return redirect(url_for('vak'))
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM vak WHERE id = %s", (id))
-    vak = cur.fetchall() 
-    return render_template("update_vak.html", vak=vak, title='update vak')
+    
 
 
 
